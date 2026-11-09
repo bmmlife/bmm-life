@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#111111">
+  <meta name="description" content="BMM LIFE — Your World. Your Opportunities.">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon-192.png">
+  <title>BMM LIFE</title>
+  <style>
+    :root{--bg:#101010;--panel:#1b1b1b;--panel2:#242424;--gold:#d4af37;--white:#f7f7f7;--muted:#aaa;--line:#353535}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--white);font:15px system-ui,-apple-system,Segoe UI,sans-serif}
+    button,input,textarea,select{font:inherit} button{cursor:pointer}
+    .app{max-width:760px;margin:auto;min-height:100vh;padding-bottom:82px}
+    header{padding:22px 18px 12px;display:flex;justify-content:space-between;align-items:center}
+    .brand{font-weight:900;letter-spacing:1.4px;color:var(--gold);font-size:23px}.tag{font-size:11px;color:var(--muted);letter-spacing:.7px}
+    .lang{background:var(--panel2);border:1px solid var(--line);color:var(--white);border-radius:20px;padding:7px 11px}
+    main{padding:8px 16px 20px}.hero{background:linear-gradient(135deg,#292316,#1c1c1c 62%);border:1px solid #5a4920;border-radius:18px;padding:20px;margin-bottom:18px}
+    .eyebrow{font-size:11px;letter-spacing:1.4px;color:var(--gold);font-weight:700}.hero h1{font-size:23px;line-height:1.2;margin:9px 0}.hero p{color:#ddd;margin:0;line-height:1.5}
+    .section-title{font-size:17px;margin:22px 0 12px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+    .tile{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:16px;min-height:128px;text-align:left;color:var(--white)}
+    .tile .emoji{font-size:25px}.tile h3{font-size:15px;margin:10px 0 4px}.tile p{font-size:12px;color:var(--muted);margin:0;line-height:1.4}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:15px;margin:10px 0}
+    .muted{color:var(--muted);font-size:13px}.row{display:flex;gap:8px;align-items:center}.between{justify-content:space-between}
+    .btn{background:var(--gold);color:#17130a;border:0;border-radius:10px;padding:11px 14px;font-weight:750}.btn.secondary{background:var(--panel2);border:1px solid var(--line);color:var(--white)}
+    input,textarea,select{width:100%;background:#111;border:1px solid var(--line);border-radius:9px;padding:11px;color:var(--white);margin:6px 0 10px}
+    label{font-size:12px;color:var(--muted)} .task{display:flex;align-items:center;gap:9px;padding:10px 0;border-bottom:1px solid var(--line)}.task:last-child{border:0}.task span{flex:1}.task.done span{text-decoration:line-through;color:var(--muted)}
+    .bottom{position:fixed;bottom:0;left:0;right:0;background:#151515;border-top:1px solid var(--line);display:flex;justify-content:center;z-index:5;padding:8px max(6px,env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom))}
+    .nav{width:min(760px,100%);display:flex;justify-content:space-around}.nav button{background:none;border:0;color:var(--muted);font-size:11px;padding:5px;min-width:54px}.nav button.active{color:var(--gold)}.nav b{display:block;font-size:19px;margin-bottom:2px}
+    .notice{border-left:3px solid var(--gold);padding:10px 12px;background:#211e15;border-radius:5px;color:#e9dfc4;font-size:12px;line-height:1.5}
+    .hidden{display:none}.pill{font-size:11px;color:var(--gold);border:1px solid #6a5723;border-radius:30px;padding:4px 8px}
+    @media(min-width:600px){main{padding:14px 22px 28px}.hero{padding:26px}.hero h1{font-size:29px}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <header><div><div class="brand">BMM LIFE</div><div class="tag">YOUR WORLD. YOUR OPPORTUNITIES.</div></div><button class="lang" id="langBtn">FR / EN</button></header>
+  <main id="view"></main>
+</div>
+<div class="bottom"><nav class="nav">
+  <button data-tab="home" class="active"><b>⌂</b><span data-i18n="home">Accueil</span></button>
+  <button data-tab="productivity"><b>✓</b><span>Tasks</span></button>
+  <button data-tab="academy"><b>▤</b><span>Academy</span></button>
+  <button data-tab="ai"><b>✧</b><span>BMM AI</span></button>
+  <button data-tab="business"><b>▣</b><span>Business</span></button>
+</nav></div>
+<script>
+const translations={
+fr:{welcome:"Bienvenue dans votre espace.",tagline:"Organisez votre vie. Développez vos connaissances. Faites avancer vos projets.",modules:"Vos espaces",productivity:"Productivité",prodDesc:"Tâches, objectifs et dépenses",academy:"Académie",academyDesc:"Apprendre, réviser et s'entraîner",ai:"Assistant BMM",aiDesc:"Outils d'aide et idées",business:"Business",businessDesc:"Clients, produits et ventes",home:"Accueil",tasks:"Mes tâches",addTask:"Ajouter une tâche",taskPlaceholder:"Ex. Préparer mon projet",add:"Ajouter",expenses:"Suivi des dépenses",expensePlaceholder:"Montant en USD",save:"Enregistrer",total:"Total enregistré",lessons:"Mini-leçon",quiz:"Question rapide",correct:"Bonne réponse !",wrong:"Pas tout à fait. Réessaie.",aiTitle:"Espace BMM AI",aiText:"Le module est préparé. Cette version ne se connecte pas encore à un véritable modèle d'intelligence artificielle.",aiPlaceholder:"Écris une question ou une idée…",simulate:"Afficher une réponse de démonstration",demo:"Ceci est une démonstration locale. Une connexion à un fournisseur IA sera nécessaire pour obtenir de vraies réponses.",businessTitle:"Gestion commerciale",client:"Nom du client",product:"Produit ou service",amount:"Montant de la vente (USD)",record:"Enregistrer la vente",sales:"Ventes enregistrées",empty:"Aucun élément pour le moment.",saved:"Enregistré sur cet appareil.",premium:"Version prototype",notice:"Prototype initial : les données sont stockées sur cet appareil uniquement. Elles ne sont pas synchronisées entre plusieurs appareils.",currency:"USD"},
+en:{welcome:"Welcome to your space.",tagline:"Organize your life. Grow your knowledge. Move your projects forward.",modules:"Your spaces",productivity:"Productivity",prodDesc:"Tasks, goals and expenses",academy:"Academy",academyDesc:"Learn, revise and practice",ai:"BMM Assistant",aiDesc:"Helpful tools and ideas",business:"Business",businessDesc:"Customers, products and sales",home:"Home",tasks:"My tasks",addTask:"Add a task",taskPlaceholder:"E.g. Prepare my project",add:"Add",expenses:"Expense tracker",expensePlaceholder:"Amount in USD",save:"Save",total:"Total recorded",lessons:"Mini lesson",quiz:"Quick question",correct:"Correct answer!",wrong:"Not quite. Try again.",aiTitle:"BMM AI space",aiText:"This module is prepared. This version is not yet connected to a real AI model.",aiPlaceholder:"Write a question or idea…",simulate:"Show demo response",demo:"This is a local demonstration. A connection to an AI provider is required for real answers.",businessTitle:"Business management",client:"Customer name",product:"Product or service",amount:"Sale amount (USD)",record:"Record sale",sales:"Recorded sales",empty:"Nothing here yet.",saved:"Saved on this device.",notice:"Initial prototype: data is stored on this device only. It is not synchronized across devices.",currency:"USD"}
+};
+let lang=localStorage.getItem("bmm_lang")||"fr",tab="home";
+const t=k=>translations[lang][k]||k, get=(k,d=[])=>JSON.parse(localStorage.getItem("bmm_"+k)||JSON.stringify(d)), set=(k,v)=>localStorage.setItem("bmm_"+k,JSON.stringify(v));
+function shell(title,content){document.getElementById("view").innerHTML=`<h2 class="section-title">${title}</h2>${content}`}
+function home(){document.getElementById("view").innerHTML=`<section class="hero"><div class="eyebrow">BMM DIGITAL SOLUTIONS</div><h1>${t("welcome")}</h1><p>${t("tagline")}</p><div style="margin-top:14px"><span class="pill">${t("premium")}</span></div></section><h2 class="section-title">${t("modules")}</h2><div class="grid">
+<button class="tile" onclick="go('productivity')"><div class="emoji">✓</div><h3>${t("productivity")}</h3><p>${t("prodDesc")}</p></button>
+<button class="tile" onclick="go('academy')"><div class="emoji">▤</div><h3>${t("academy")}</h3><p>${t("academyDesc")}</p></button>
+<button class="tile" onclick="go('ai')"><div class="emoji">✧</div><h3>${t("ai")}</h3><p>${t("aiDesc")}</p></button>
+<button class="tile" onclick="go('business')"><div class="emoji">▣</div><h3>${t("business")}</h3><p>${t("businessDesc")}</p></button></div><div class="card notice" style="margin-top:16px">${t("notice")}</div>`}
+function productivity(){let tasks=get("tasks"),expenses=get("expenses");shell(t("productivity"),`<div class="card"><h3>${t("tasks")}</h3><label>${t("addTask")}</label><div class="row"><input id="taskInput" placeholder="${t("taskPlaceholder")}"><button class="btn" onclick="addTask()">${t("add")}</button></div><div id="taskList">${tasks.length?tasks.map((x,i)=>`<div class="task ${x.done?'done':''}"><input type="checkbox" style="width:auto;margin:0" ${x.done?'checked':''} onchange="toggleTask(${i})"><span>${escapeHtml(x.text)}</span><button class="btn secondary" onclick="deleteTask(${i})">×</button></div>`).join(""):`<p class="muted">${t("empty")}</p>`}</div></div><div class="card"><h3>${t("expenses")}</h3><label>${t("expensePlaceholder")}</label><div class="row"><input id="expenseInput" type="number" min="0" step="0.01" placeholder="0.00"><button class="btn" onclick="addExpense()">${t("save")}</button></div><p>${t("total")}: <strong>${expenses.reduce((a,b)=>a+b,0).toFixed(2)} ${t("currency")}</strong></p></div><div class="notice">${t("notice")}</div>`)}
+function academy(){shell(t("academy"),`<div class="card"><span class="pill">${t("lessons")}</span><h3>${lang==="fr"?"La méthode des petits objectifs":"The small-goals method"}</h3><p class="muted">${lang==="fr"?"Divise un grand objectif en actions réalisables. Choisis une priorité, fixe une échéance et vérifie tes progrès chaque jour.":"Break a large goal into achievable actions. Choose one priority, set a deadline and review your progress daily."}</p></div><div class="card"><h3>${t("quiz")}</h3><p>${lang==="fr"?"Quelle méthode aide à réaliser un grand projet ?":"Which method helps complete a large project?"}</p><button class="btn secondary" onclick="quiz(false)">${lang==="fr"?"Tout faire en même temps":"Do everything at once"}</button> <button class="btn" onclick="quiz(true)">${lang==="fr"?"Le diviser en petites étapes":"Break it into small steps"}</button><p id="quizResult" class="muted"></p></div>`)}
+function quiz(ok){document.getElementById("quizResult").textContent=ok?t("correct"):t("wrong")}
+function ai(){shell(t("aiTitle"),`<div class="card"><p>${t("aiText")}</p><label>${t("aiPlaceholder")}</label><textarea id="aiInput" rows="3" placeholder="${t("aiPlaceholder")}"></textarea><button class="btn" onclick="demoAI()">${t("simulate")}</button><p id="aiResult" class="muted"></p></div><div class="notice">${t("demo")}</div>`)}
+function demoAI(){document.getElementById("aiResult").textContent=t("demo")}
+function business(){let sales=get("sales");shell(t("businessTitle"),`<div class="card"><label>${t("client")}</label><input id="clientInput"><label>${t("product")}</label><input id="productInput"><label>${t("amount")}</label><input id="amountInput" type="number" min="0" step="0.01"><button class="btn" onclick="addSale()">${t("record")}</button></div><div class="card"><h3>${t("sales")}</h3>${sales.length?sales.map(s=>`<p>${escapeHtml(s.client)} — ${escapeHtml(s.product)} : <strong>${Number(s.amount).toFixed(2)} USD</strong></p>`).join(""):`<p class="muted">${t("empty")}</p>`}</div><div class="notice">${t("notice")}</div>`)}
+function addTask(){let v=document.getElementById("taskInput").value.trim();if(!v)return;let a=get("tasks");a.push({text:v,done:false});set("tasks",a);productivity()}
+function toggleTask(i){let a=get("tasks");a[i].done=!a[i].done;set("tasks",a);productivity()}
+function deleteTask(i){let a=get("tasks");a.splice(i,1);set("tasks",a);productivity()}
+function addExpense(){let v=Number(document.getElementById("expenseInput").value);if(!(v>0))return;let a=get("expenses");a.push(v);set("expenses",a);productivity()}
+function addSale(){let client=document.getElementById("clientInput").value.trim(),product=document.getElementById("productInput").value.trim(),amount=Number(document.getElementById("amountInput").value);if(!client||!product||!(amount>0))return;let a=get("sales");a.push({client,product,amount});set("sales",a);business()}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function go(x){tab=x;document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.tab===x));render()}
+function render(){if(tab==="home")home();if(tab==="productivity")productivity();if(tab==="academy")academy();if(tab==="ai")ai();if(tab==="business")business()}
+document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",()=>go(b.dataset.tab)));
+document.getElementById("langBtn").addEventListener("click",()=>{lang=lang==="fr"?"en":"fr";localStorage.setItem("bmm_lang",lang);render();document.getElementById("langBtn").textContent=lang==="fr"?"FR / EN":"EN / FR"});
+render();
+if("serviceWorker" in navigator && location.protocol.startsWith("http")) navigator.serviceWorker.register("./sw.js").catch(()=>{});
+</script>
+</body>
+</html>
